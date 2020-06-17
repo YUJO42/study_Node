@@ -1,4 +1,9 @@
 import express from "express";
+import morgan from "morgan";
+import helmet from "helmet";
+import coockieParser from "cookie-parser";
+import bodyParser from "body-parser";
+
 const app = express();
 
 const PORT = 4000;
@@ -9,6 +14,12 @@ const handleListening = () =>
 const handleHome = (req, res) => res.send("Hello from Home");
 
 const handleProfile = (req, res) => res.send("You are on my profile");
+
+app.use(coockieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(morgan("dev"));
 
 app.get("/", handleHome);
 
